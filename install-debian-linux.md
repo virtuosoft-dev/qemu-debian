@@ -19,7 +19,7 @@ The installer will then configure the clock; Virtuosoft’s corporate office and
 
 * Press arrow down 3 times to select the 'Pacific' timezone, then enter to continue.
 
-The installer will then continue loading additional components. It will eventually start up the disk partitioner. We've allow a generous filesystem of up to 2 terabytes. The initial allocated space will be less than 2 gigabytes and will only grow as needed. Please be sure to answer the following:
+The installer will then continue loading additional components. It will eventually start up the disk partitioner. We've allowed a generous default filesystem of up to 2 terabytes. The initial allocated space will be less than 2 gigabytes and will only grow as needed. Please be sure to answer the following:
 
 * Select 'Guided - use entire disk'
 * Select 'Virtual disk 1 (vda) - 2.1 TB Virtio Block Device'
