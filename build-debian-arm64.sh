@@ -71,7 +71,7 @@ if [ ! -f "build/$ISO_FILENAME" ]; then
     curl -L -o "build/$ISO_FILENAME" "$ISO_URL"
 
     # Check if file is larger than 100MB
-    FILE_SIZE=$(stat -c%s "build/$ISO_FILENAME")
+    FILE_SIZE=$(stat -f%z "build/$ISO_FILENAME") # Use macOS compatible stat option
     if [ $FILE_SIZE -gt 100000000 ]; then
         echo "Download complete. File size: $(($FILE_SIZE / 1024 / 1024)) MB"
     else
