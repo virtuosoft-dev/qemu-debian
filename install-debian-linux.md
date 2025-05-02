@@ -51,4 +51,4 @@ The installer will complete and start booting the operating system with the prom
 sudo poweroff
 ```
 
-After machine powers off, the build script will continue to compress the image file along with relevant bios/efi image files into a single zip in your build folder (debian-arm64.zip or debian-amd64.zip). These prebuild archives can be found in the releases tab at [https://github.com/virtuosoft-dev/](https://github.com/virtuosoft-dev/qemu-debian/releases).
+After machine powers off, the build script will continue to compress the image file along with relevant bios/efi image files into a single zip in your build folder (debian-arm64.zip or debian-amd64.zip). These prebuild archives can be found in the releases tab at https://github.com/virtuosoft-dev/qemu-debian/releases.
