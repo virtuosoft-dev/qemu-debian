@@ -1,2 +1,2 @@
-# qemu-debian12
-Cross architecture (AMD64/ARM64) Debian 12 QEMU base images with generous (2TB) disk space allocation.
+# qemu-debian
+This repo is used to build cross architecture (AMD64/ARM64) Debian 12 QEMU base images and release them for download and general use or use in other projects. Within this repo you will find instructions and helper scripts to produced the zipped images (debian-arm64.zip and debian-amd64.zip) that are made available as assets in the release tab. Release version numbers correspond with the Debian release numbers.
