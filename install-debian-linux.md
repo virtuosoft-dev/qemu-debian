@@ -52,3 +52,65 @@ sudo poweroff
 ```
 
 After machine powers off, the build script will continue to compress the image file along with relevant bios/efi image files into a single zip in your build folder (debian-arm64.zip or debian-amd64.zip). These prebuild archives can be found in the releases tab at https://github.com/virtuosoft-dev/qemu-debian/releases.
+
+## Running Debian Linux
+Running the build for testing can be accomplished using the following platform specific commands; note that this will writeback and alter the base image file:
+
+* On macOS with Intel processors
+```
+qemu-system-x86_64 \
+        -machine q35,vmport=off -accel hvf \
+        -cpu qemu64-v1 \
+        -vga virtio \
+        -smp cpus=4,sockets=1,cores=4,threads=1 \
+        -m 4G \
+        -bios bios.img \
+        -display default,show-cursor=on \
+        -net nic -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::8083-:8083 \
+        -drive if=virtio,format=qcow2,file=debian-amd64.img \
+        -device virtio-balloon-pci \
+        -device virtio-serial-pci \
+        -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 \
+        -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 \
+        -nographic
+```
+
+* On macOS with Apple Silicon processors
+```
+qemu-system-aarch64 \
+        -machine virt -accel hvf \
+        -cpu host \
+        -vga none \
+        -smp cpus=4,sockets=1,cores=4,threads=1 \
+        -m 4G \
+        -drive if=pflash,format=raw,file=efi.img,file.locking=off,readonly=on \
+        -drive if=pflash,format=raw,file=efi_vars.img \
+        -device nec-usb-xhci,id=usb-bus \
+        -device virtio-blk-pci,drive=drivedebian-arm64,bootindex=0 \
+        -drive if=none,media=disk,id=drivedebian-arm64,file=debian-arm64.img,discard=unmap,detect-zeroes=unmap \
+        -device virtio-balloon-pci \
+        -device virtio-serial-pci \
+        -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 \
+        -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 \
+        -net nic -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::8083-:8083 \
+        -nographic
+```
+
+* On Windows with Intel processors
+```
+qemu-system-x86_64 ^
+        -machine q35,vmport=off -accel whpx,kernel-irqchip=off ^
+        -cpu qemu64-v1 ^
+        -vga virtio ^
+        -smp cpus=4,sockets=1,cores=4,threads=1 ^
+        -m 4G ^
+        -bios bios.img ^
+        -display default,show-cursor=on ^
+        -net nic -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::8023-:8023 ^
+        -drive if=virtio,format=qcow2,file=devstia-amd64.img ^
+        -device virtio-balloon-pci ^
+        -device virtio-serial-pci ^
+        -chardev socket,path=\\.\pipe\qga,server=on,wait=off,id=qga0 ^
+        -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 ^
+        -nographic
+```
