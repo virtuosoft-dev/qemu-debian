@@ -119,4 +119,16 @@ echo "Compressing the image and efi.img into a zip file..."
 zip -r debian-arm64.zip debian-arm64.img efi.img efi_vars.img
 echo "Compression complete. The zip file is named"
 echo "debian-arm64.zip in the build subfolder."
+
+# Remove prior tar.xz file if it exists
+if [ -f "debian-arm64.tar.xz" ]; then
+    echo "Removing old tar.xz file..."
+    rm debian-arm64.tar.xz
+fi
+
+# Compress the image and EFI files into a tar.xz file
+echo "Compressing the image and EFI files into a tar.xz file..."
+tar -cJf debian-arm64.tar.xz debian-arm64.img efi.img efi_vars.img
+echo "Compression complete. The tar.xz file is named"
+echo "debian-arm64.tar.xz in the build subfolder."
 cd ..

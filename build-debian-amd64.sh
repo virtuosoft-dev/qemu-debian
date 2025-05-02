@@ -115,4 +115,16 @@ echo "Compressing the image and bios.img into a zip file..."
 zip -r debian-amd64.zip debian-amd64.img bios.img
 echo "Compression complete. The zip file is named"
 echo "debian-amd64.zip in the build subfolder."
+
+# Remove prior tar.xz file if it exists
+if [ -f "debian-amd64.tar.xz" ]; then
+    echo "Removing old tar.xz file..."
+    rm debian-amd64.tar.xz
+fi
+
+# Compress the image and bios.img into a tar.xz file
+echo "Compressing the image and bios.img into a tar.xz file..."
+tar -cJf debian-amd64.tar.xz debian-amd64.img bios.img
+echo "Compression complete. The tar.gz file is named"
+echo "debian-amd64.tar.xz in the build subfolder."
 cd ..
