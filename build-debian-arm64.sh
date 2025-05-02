@@ -108,6 +108,9 @@ qemu-system-aarch64 \
         -net nic -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::8083-:8083 \
         -nographic
 
+# Write the version.txt file
+echo $DEBIAN_VERSION > version.txt
+
 # Remove prior zip file if it exists
 if [ -f "debian-arm64.zip" ]; then
     echo "Removing old zip file..."
@@ -116,7 +119,7 @@ fi
 
 # Compress the image, and bios.img into a zip file
 echo "Compressing the image and efi.img into a zip file..."
-zip -r debian-arm64.zip debian-arm64.img efi.img efi_vars.img
+zip -r debian-arm64.zip debian-arm64.img efi.img efi_vars.img version.txt
 echo "Compression complete. The zip file is named"
 echo "debian-arm64.zip in the build subfolder."
 
@@ -128,7 +131,7 @@ fi
 
 # Compress the image and EFI files into a tar.xz file
 echo "Compressing the image and EFI files into a tar.xz file..."
-tar -cJf debian-arm64.tar.xz debian-arm64.img efi.img efi_vars.img
+tar -cJf debian-arm64.tar.xz debian-arm64.img efi.img efi_vars.img version.txt
 echo "Compression complete. The tar.xz file is named"
 echo "debian-arm64.tar.xz in the build subfolder."
 cd ..

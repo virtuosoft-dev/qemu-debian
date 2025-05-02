@@ -104,6 +104,9 @@ qemu-system-x86_64 \
         -drive if=virtio,format=qcow2,file=debian-amd64.img \
         -device virtio-balloon-pci
 
+# Write the version.txt file
+echo $DEBIAN_VERSION > version.txt
+
 # Remove prior zip file if it exists
 if [ -f "debian-amd64.zip" ]; then
     echo "Removing old zip file..."
@@ -112,7 +115,7 @@ fi
 
 # Compress the image, and bios.img into a zip file
 echo "Compressing the image and bios.img into a zip file..."
-zip -r debian-amd64.zip debian-amd64.img bios.img
+zip -r debian-amd64.zip debian-amd64.img bios.img version.txt
 echo "Compression complete. The zip file is named"
 echo "debian-amd64.zip in the build subfolder."
 
@@ -124,7 +127,7 @@ fi
 
 # Compress the image and bios.img into a tar.xz file
 echo "Compressing the image and bios.img into a tar.xz file..."
-tar -cJf debian-amd64.tar.xz debian-amd64.img bios.img
+tar -cJf debian-amd64.tar.xz debian-amd64.img bios.img version.txt
 echo "Compression complete. The tar.gz file is named"
 echo "debian-amd64.tar.xz in the build subfolder."
 cd ..
