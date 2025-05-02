@@ -25,11 +25,11 @@ cd qemu-debian
 
 * macOS x64
 ```
-source ./build-vm-mac-amd64.sh
+source ./build-debian-amd64.sh
 ```
 * macOS M1
 ```
-source ./build-vm-mac-arm64.sh
+source ./build-debian-arm64.sh
 ```
 
 3) Follow the instructions for **[Install Debian Linux](install-debian-linux.md)**
