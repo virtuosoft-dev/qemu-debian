@@ -63,7 +63,7 @@ else
 fi
 
 # Check if ISO file already exists
-DEBIAN_VERSION="12.10.0"
+DEBIAN_VERSION="12.11.0"
 ISO_FILENAME="debian-$DEBIAN_VERSION-arm64-netinst.iso"
 ISO_URL="https://mirrors.ocf.berkeley.edu/debian-cd/$DEBIAN_VERSION/arm64/iso-cd/$ISO_FILENAME"
 if [ ! -f "build/$ISO_FILENAME" ]; then
